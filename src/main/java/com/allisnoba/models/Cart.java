@@ -6,21 +6,27 @@ import java.util.Collections;
 import java.util.List;
 
 public class Cart {
-    private List<Item> items = new ArrayList<>();
+    private List<LineItem> items = new ArrayList<>();
 
     public BigDecimal getTotalPrice() {
         return items.stream()
-                .map((i) -> i.getPrice())
+                .map((i) -> i.getSubTotal())
                 .reduce(new BigDecimal(0), (acc, st) -> acc.add(st));
     }
 
     public void addItem(Item item, int quantity) {
-        for(int i = 0; i < quantity; i++) {
-            items.add(item);
-        }
+        items.add(new LineItem(item, quantity));
     }
 
-    public List<Item> getItems() {
+    public List<LineItem> getItems() {
         return Collections.unmodifiableList(items);
+    }
+
+    public List<String> itemQuantities() {
+        List<String> lineItems = new ArrayList<>();
+        for(LineItem item : items) {
+            lineItems.add(String.format("%s - x%s", item.getItem().getName(), item.getQuantity()));
+        }
+        return lineItems;
     }
 }
