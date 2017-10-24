@@ -40,4 +40,18 @@ public class Cart {
         }
         return lineItems;
     }
+
+    public List<String> onSaleItems() {
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        List<String> lineItems = new ArrayList<>();
+        for(LineItem item : items) {
+            if(item.getItem().isOnSale()) {
+                lineItems.add(String.format("%s x%d - %s",
+                        item.getItem().getName(),
+                        item.getQuantity(),
+                        formatter.format(item.getSubTotal())));
+            }
+        }
+        return lineItems;
+    }
 }

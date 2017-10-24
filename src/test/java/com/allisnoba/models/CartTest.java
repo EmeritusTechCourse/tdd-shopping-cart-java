@@ -23,8 +23,6 @@ public class CartTest {
 
         // Assert
         assertEquals("when I begin shopping, then I expect my cart to be empty", 0, actual);
-
-        // Teardown
     }
 
     @Test
@@ -63,12 +61,27 @@ public class CartTest {
         Cart cart = new Cart();
         List<String> expected = Arrays.asList("Handbag x1 - $500.00", "Watch x2 - $40,000.00");
 
-        // Exercise (when I add items)
+        // Exercise (when I add more than one of an item)
         cart.addItem(new Item("Handbag", new BigDecimal("500"), false), 1);
         cart.addItem(new Item("Watch", new BigDecimal("20000"), false), 2);
         List<String> quantities = cart.itemizedList();
 
-        // Assert (I expect itemizedList() reflect the items I have added along with their price and quantity.)
+        // Assert
         assertEquals("I expect `itemQuantities()` to show the number of items I have added.", expected, quantities);
+    }
+
+    @Test
+    public void onSaleItemsShouldFilter() {
+        // Setup (Given I have a cart with items that are not on sale)
+        Cart cart = new Cart();
+        List<String> expected = Arrays.asList("Watch x2 - $40,000.00");
+        cart.addItem(new Item("Handbag", new BigDecimal("500"), false), 1);
+        cart.addItem(new Item("Watch", new BigDecimal("20000"), true), 2);
+
+        // Exercise (when I add items that are on sale)
+        List<String> quantities = cart.onSaleItems();
+
+        // Assert
+        assertEquals("I expect onSaleItems() to include only the items on sale.", expected, quantities);
     }
 }
