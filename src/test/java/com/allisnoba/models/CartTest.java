@@ -56,4 +56,19 @@ public class CartTest {
         // Assert
         assertEquals("I expect `itemQuantities()` to show the number of items I have added.", expected, quantities);
     }
+
+    @Test
+    public void itemizedListShouldReflectPriceAndQuantity() {
+        // Setup (Given I have an empty cart)
+        Cart cart = new Cart();
+        List<String> expected = Arrays.asList("Handbag x1 - $500.00", "Watch x2 - $40,000.00");
+
+        // Exercise (when I add items)
+        cart.addItem(new Item("Handbag", new BigDecimal("500"), false), 1);
+        cart.addItem(new Item("Watch", new BigDecimal("20000"), false), 2);
+        List<String> quantities = cart.itemizedList();
+
+        // Assert (I expect itemizedList() reflect the items I have added along with their price and quantity.)
+        assertEquals("I expect `itemQuantities()` to show the number of items I have added.", expected, quantities);
+    }
 }

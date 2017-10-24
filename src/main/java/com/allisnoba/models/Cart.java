@@ -1,9 +1,8 @@
 package com.allisnoba.models;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.text.NumberFormat;
+import java.util.*;
 
 public class Cart {
     private List<LineItem> items = new ArrayList<>();
@@ -26,6 +25,18 @@ public class Cart {
         List<String> lineItems = new ArrayList<>();
         for(LineItem item : items) {
             lineItems.add(String.format("%s - x%s", item.getItem().getName(), item.getQuantity()));
+        }
+        return lineItems;
+    }
+
+    public List<String> itemizedList() {
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        List<String> lineItems = new ArrayList<>();
+        for(LineItem item : items) {
+            lineItems.add(String.format("%s x%d - %s",
+                    item.getItem().getName(),
+                    item.getQuantity(),
+                    formatter.format(item.getSubTotal())));
         }
         return lineItems;
     }
