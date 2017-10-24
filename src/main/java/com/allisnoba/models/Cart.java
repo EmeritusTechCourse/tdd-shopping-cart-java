@@ -6,11 +6,18 @@ import java.util.Collections;
 import java.util.List;
 
 public class Cart {
-    private BigDecimal totalPrice;
     private List<Item> items = new ArrayList<>();
 
     public BigDecimal getTotalPrice() {
-        return totalPrice;
+        return items.stream()
+                .map((i) -> i.getPrice())
+                .reduce(new BigDecimal(0), (acc, st) -> acc.add(st));
+    }
+
+    public void addItem(Item item, int quantity) {
+        for(int i = 0; i < quantity; i++) {
+            items.add(item);
+        }
     }
 
     public List<Item> getItems() {
