@@ -17,7 +17,7 @@ As a developer, your task is to implement the following user story, following th
 
 1. Fork this repository
 2. Clone your new fork
-3. Submit the link to your completed code in [Learn](https://learn-2.galvanize.com/cohorts/2328).
+3. Submit the link to your completed code in [Learn](https://learn-2.galvanize.com/cohorts/2560).
 
 Once cloned, be sure to share the link to the new repository with your group! You'll both submit the same link to Learn for credit.
 
